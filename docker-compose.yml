@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: . # path to the build context
+      target: development # build the specified stage as defined inside the Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - "db"
+  db:
+    image: mysql:8.0.29
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: challengedb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      restart: always
+    volumes:
+      - db:/var/lib/mysql # persisting db data using data volumes
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf # using custom config
+
+volumes:
+  db:
+    driver: local # the volume db is created on the same Docker host where the container is running
+
