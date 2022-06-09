@@ -2,7 +2,11 @@
 
 This repository is my approach to a 48 hour coding challenge including Golang, Docker and Firebase authentication.
 
-## Requirements (ecosystem in which it was tested)
+## Requirements
+
+- 
+
+## Ecosystem in which it was tested
 
 - Docker version `20.10.14`
 - Docker Compose version `1.29.2`, build `5becea4c`

@@ -8,6 +8,7 @@ import (
 	"golangchallenge/internal/core/domain"
 	"golangchallenge/internal/core/ports"
 	"golangchallenge/internal/errorx"
+	"io"
 	"net/http"
 	"os"
 	"strings"
@@ -78,7 +79,6 @@ func (s *authenticationService) createToken(ctx context.Context, authenticationD
 	}
 
 	resp, err := http.Post(signInUrl, "application/json", buffer)
-	defer resp.Body.Close()
 
 	if err != nil {
 		return errorx.NewInternalServerError(
@@ -87,6 +87,10 @@ func (s *authenticationService) createToken(ctx context.Context, authenticationD
 				"AuthenticationService-SignUp"),
 			""
 	}
+
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 
 	decoder := json.NewDecoder(resp.Body)
 	firebaseAuthResponse := struct {
