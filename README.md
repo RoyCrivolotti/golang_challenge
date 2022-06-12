@@ -4,7 +4,50 @@ This repository is my approach to a 48 hour coding challenge including Golang, D
 
 ## Requirements
 
-- 
+- Create a backend REST service that receives a list of desired micro-courses in JSON format. The payload data is not organized in any specific order.
+- Develop a service that can create a study schedule that lists courses in an order that respects the constraints (see the sorting constraints below).
+- Use Docker Compose to provide the solution of an SQL database.
+- Develop unit and end-to-end tests.
+- API endpoints should be protected with authentication using Firebase Authentication.
+
+### Data input
+**JSON payload example**:
+
+```
+{
+   "userId":"30ecc27b-9df7-4dd3-b52f-d001e79bd035",
+   "courses":[
+      {
+         "desiredCourse":"PortfolioConstruction",
+         "requiredCourse":"PortfolioTheories"
+      },
+      {
+         "desiredCourse":"InvestmentManagement",
+         "requiredCourse":"Investment"
+      },
+      {
+         "desiredCourse":"Investment",
+         "requiredCourse":"Finance"
+      },
+      {
+         "desiredCourse":"PortfolioTheories",
+         "requiredCourse":"Investment"
+      },
+      {
+         "desiredCourse":"InvestmentStyle",
+         "requiredCourse":"InvestmentManagement"
+      }
+   ]
+}
+```
+
+**The service must return the courses sorted as follows**:
+0. Finance
+1. Investment
+2. InvestmentManagement
+3. PortfolioTheories
+4. InvestmentStyle
+5. PortfolioConstruction
 
 ## Ecosystem in which it was tested
 
@@ -18,15 +61,10 @@ This repository is my approach to a 48 hour coding challenge including Golang, D
 
 A few assumptions were made when developing this challenge, specifically regarding the sorting algorithm:
 
-- It was assumed that no course could have more than one required course/correlative, meaning that the data could be
-  modeled using a tree data structure instead of a graph.
+- It was assumed that no course could have more than one required course/correlative, meaning that the data could be modeled using a tree data structure instead of a graph.
 - It was assumed that the end user sends correct data, with correctness being tied to this list of assumptions.
-- Since multiple courses could be at the same level (ie the exact same required courses/amount of required courses), we
-  assumed that the first one to appear as a `desired course` (aka a `child node`), is returned first, since that is the
-  same criteria followed in the example provided.
-- It was assumed that, just as in the example provided, the data could always be modeled by a tree data structure. We
-  assume that there is always a root node (ie a required course at the top that has no correlatives), and that there is
-  only one root node.
+- Since multiple courses could be at the same level (ie the exact same required courses/amount of required courses), we assumed that the first one to appear as a `desired course` (aka a `child node`), is returned first, since that is the same criteria followed in the example provided.
+- It was assumed that, just as in the example provided, the data could always be modeled by a tree data structure. We assume that there is always a root node (ie a required course at the top that has no correlatives), and that there is only one root node.
 
 ## How to run app locally
 
@@ -36,18 +74,11 @@ A few assumptions were made when developing this challenge, specifically regardi
 
 #### Step-by-step requests to try authentication as well as the sorting algorithm
 
-- Initially, if one tries to consume `POST /courses/sort`, it will return an error since an authentication token is
-  needed.
-- If one tries to log (`POST user/login`) in with any user (except the test one used in the Postman collection, since it
-  has already been registered), it should also return an error since singing up before logging in is required.
-- By consuming the endpoint to sign up (`POST user/signup`) with the corresponding body (see examples in the Postman
-  collection) containing a valid `email` (can be any random email so long as it can be parsed into an email address), a
-  non-empty `password` and the `returnSecureToken` field set to `true`, that email will be registered and the bearer
-  token will be returned, which is valid for an hour.
-    - If one wanted to test the token creation manually using Firebase's API, there is an example in the Postman
-      collection
-- From this point on, consuming `POST user/login` with the registered `email` and `password` will return a renewed
-  bearer token.
+- Initially, if one tries to consume `POST /courses/sort`, it will return an error since an authentication token is needed.
+- If one tries to log (`POST user/login`) in with any user, it should return an error since you must sing up before logging in.
+- By consuming the endpoint to sign up (`POST user/signup`) with the corresponding body (see examples in the Postman collection) containing a valid `email` (can be any random email so long as it can be parsed into an email address), a non-empty `password` and the `returnSecureToken` field set to `true`, that email will be registered and the bearer token will be returned, which is valid for an hour.
+    - If one wanted to test the token creation manually using Firebase's API, there is an example in the Postman collection.
+- From this point on, consuming `POST user/login` with the registered `email` and `password` will return a renewed bearer token.
 - With this bearer token, now one can consume `POST /courses/sort`.
 
 ## How to run unit tests
@@ -63,8 +94,7 @@ Postman collection containing 4 requests:
 - Request to sign up with a random email and password
 - Request to log in with a previously signed-up email and password
 - Request to Firebase's API to get the bearer token
-    - **Note:** While with Firebase's Admin SDK for other languages one can easily call the sign-in methods to get the
-      required token, Go's SDK doesn't provide this, so without a frontend I had to manually consume this API.
+    - **Note:** While with Firebase's Admin SDK for other languages one can easily call the sign-in methods to get the required token, Go's SDK doesn't provide this, so without a frontend I had to manually consume this API.
 
 ```
 {
