@@ -1,6 +1,14 @@
 # Coding Challenge
 
-This repository is my approach to a 48 hour coding challenge including Golang, Docker and Firebase authentication.
+This repository is my approach to a 48 hour coding challenge including Golang, tree sorting algorithms, Docker and Firebase authentication.
+
+## Ecosystem in which it was tested
+
+- Docker version `20.10.14`
+- Docker Compose version `1.29.2`, build `5becea4c`
+- MacBook Pro 13-inch 2020, `macOS Monterrey Version 12.3.1`
+- Postman version `9.15.13`
+- Firebase project
 
 ## Requirements
 
@@ -47,14 +55,6 @@ This repository is my approach to a 48 hour coding challenge including Golang, D
 3. PortfolioTheories
 4. InvestmentStyle
 5. PortfolioConstruction
-
-## Ecosystem in which it was tested
-
-- Docker version `20.10.14`
-- Docker Compose version `1.29.2`, build `5becea4c`
-- MacBook Pro 13-inch 2020, `macOS Monterrey Version 12.3.1`
-- Postman version `9.15.13`
-- Firebase project
 
 ## Assumptions
 
