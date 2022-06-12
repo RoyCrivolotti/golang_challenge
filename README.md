@@ -49,6 +49,7 @@ This repository is my approach to a 48 hour coding challenge including Golang, t
 ```
 
 **The service must return the courses sorted as follows (expected output)**:
+
 0. Finance
 1. Investment
 2. InvestmentManagement
