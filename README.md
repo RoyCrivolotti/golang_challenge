@@ -1,6 +1,6 @@
 # Coding Challenge
 
-This repository is my approach to a 48 hour coding challenge including Golang, tree sorting algorithms, Docker and Firebase authentication.
+This repository is my approach to a 48 hour coding challenge including Golang, tree sorting algorithm, Docker and Firebase authentication.
 
 ## Ecosystem in which it was tested
 
