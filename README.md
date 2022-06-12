@@ -10,8 +10,7 @@ This repository is my approach to a 48 hour coding challenge including Golang, D
 - Develop unit and end-to-end tests.
 - API endpoints should be protected with authentication using Firebase Authentication.
 
-### Data input
-**JSON payload example**:
+#### Data input (JSON payload example):
 
 ```
 {
@@ -41,7 +40,7 @@ This repository is my approach to a 48 hour coding challenge including Golang, D
 }
 ```
 
-**The service must return the courses sorted as follows**:
+**The service must return the courses sorted as follows (expected output)**:
 0. Finance
 1. Investment
 2. InvestmentManagement
